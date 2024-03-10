@@ -1,0 +1,67 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div>
+    <h2>Product <b>Add</b></h2>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Supplier" class="form-label"></label>
+                <select class="form-select" asp-for="SupplierId" id="category">
+                    @foreach (Supplier supplier in ViewBag.SpplyierListesi)
+                    {
+                        <option value="@supplier.SupplierId">@supplier.CompanyName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label"></label>
+                <select class="form-select" asp-for="CategoryId" id="category">
+                    @foreach (Category category in ViewBag.CategoryListesi)
+                    {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="QuantityPerUnit" class="form-label"></label>
+                <input asp-for="QuantityPerUnit" class="form-control" />
+                <span asp-validation-for="QuantityPerUnit" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="UnitPrice" class="form-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="UnitsInStock" class="form-label"></label>
+                <input asp-for="UnitsInStock" class="form-control" />
+                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="UnitsOnOrder" class="form-label"></label>
+                <input asp-for="UnitsOnOrder" class="form-control" />
+                <span asp-validation-for="UnitsOnOrder" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+

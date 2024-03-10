@@ -1,0 +1,84 @@
+﻿@model IndexVM<Supplier>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="table-responsive">
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h2>Manage <b>Suppliyer</b></h2>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="add" asp-action="Add"><i class="material-icons" data-toggle="tooltip" title="Add Category">add_circle</i></a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CompanyName</th>
+                        <th>ContactName</th>
+                        <th>ContactTitle</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Region</th>
+                        <th>PostalCode</th>
+                        <th>Country</th>
+                        <th>Phone</th>
+                        <th>Fax</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var suppliyer in Model.Items!) // Model içindeki her bir Category öğesi için döngü oluşturuyoruz.
+                    {
+                        <tr>
+                            <td>@suppliyer.SupplierId</td>
+                            <td>@suppliyer.CompanyName</td>
+                            <td>@suppliyer.ContactName</td>
+                            <td>@suppliyer.ContactTitle</td>
+                            <td>@suppliyer.Address</td>
+                            <td>@suppliyer.City</td>
+                            <td>@suppliyer.Region</td>
+                            <td>@suppliyer.PostalCode</td>
+                            <td>@suppliyer.Country</td>
+                            <td>@suppliyer.Phone</td>
+                            <td>@suppliyer.Fax</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@suppliyer.SupplierId" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+
+                                <a class="delete" asp-action="Delete" asp-route-id="@suppliyer.SupplierId"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+
+                                <a class="detail" asp-action="Details" asp-route-id="@suppliyer.SupplierId"><i class="material-icons" data-toggle="tooltip" title="Detail">dvr</i></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>@Model.Items.Count()</b> out of <b>@Model.TotalCount</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">Next</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

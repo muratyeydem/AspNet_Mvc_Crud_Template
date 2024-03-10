@@ -1,0 +1,69 @@
+﻿@model IndexVM<Category>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="table-responsive">
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h2>Manage <b>Category</b></h2>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="add" asp-action="Add"><i class="material-icons" data-toggle="tooltip" title="Add Category">add_circle</i></a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.Items!) // Model içindeki her bir Category öğesi için döngü oluşturuyoruz.
+                    {
+                        <tr>
+                            <td>@category.CategoryId</td>
+                            <td>@category.CategoryName</td>
+                            <td>@category.Description</td>
+                            <td> 
+                                <a asp-action="Edit" asp-route-id="@category.CategoryId" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                             
+                                <a class="delete" asp-action="Delete" asp-route-id="@category.CategoryId"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+
+                                <a class="detail" asp-action="Detail" asp-route-id="@category.CategoryId"><i class="material-icons" data-toggle="tooltip" title="Detail">dvr</i></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>@Model.Items.Count()</b> out of <b>@Model.TotalCount</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">Next</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
